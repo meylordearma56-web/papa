@@ -6,110 +6,198 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="color-scheme" content="light" />
-    <title>Profesional Firestop LLC</title>
+    <meta
+      name="description"
+      content="Professional firestopping and fire-protection work for commercial and residential buildings."
+    />
+    <title>Company Name</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --ink: #1a1f24;
-        --ember: #c23b22;
-        --surface: #f3f5f7;
-        --surface-mid: #e6ebf0;
-      }
-
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100%;
-        min-height: 100dvh;
-        width: 100%;
-      }
-
-      body {
-        -webkit-text-size-adjust: 100%;
-        text-size-adjust: 100%;
-        color: var(--ink);
-        background:
-          radial-gradient(120% 80% at 100% 0%, #dde4ea 0%, transparent 55%),
-          linear-gradient(165deg, var(--surface) 0%, var(--surface-mid) 100%);
-        font-family: "Barlow Condensed", sans-serif;
-      }
-
-      .top-bar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: max(1rem, env(safe-area-inset-top))
-          max(1.25rem, env(safe-area-inset-right)) 1rem
-          max(1.25rem, env(safe-area-inset-left));
-        z-index: 10;
-      }
-
-      .company-name {
-        margin: 0;
-        font-size: clamp(1.05rem, 2.8vw, 1.45rem);
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        color: var(--ink);
-        line-height: 1.15;
-        text-align: right;
-        animation: fade-slide-in 0.7s ease-out both;
-      }
-
-      .company-name::after {
-        content: "";
-        display: block;
-        width: 2.5rem;
-        height: 3px;
-        margin: 0.4rem 0 0 auto;
-        background: var(--ember);
-        animation: rule-grow 0.55s ease-out 0.25s both;
-      }
-
-      @keyframes fade-slide-in {
-        from {
-          opacity: 0;
-          transform: translateX(0.75rem);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes rule-grow {
-        from {
-          width: 0;
-          opacity: 0;
-        }
-        to {
-          width: 2.5rem;
-          opacity: 1;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="top-bar">
-      <p class="company-name">Profesional Firestop LLC</p>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Company home">
+        <!-- Replace assets/logo.svg with your logo file -->
+        <img
+          class="brand__logo"
+          src="./assets/logo.svg"
+          alt=""
+          width="40"
+          height="40"
+        />
+        <span class="brand__name" data-company-name>Company Name</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Introduction">
+        <div class="hero__media" aria-hidden="true">
+          <img
+            src="./assets/work/hero.jpg"
+            alt=""
+            width="2000"
+            height="1333"
+          />
+        </div>
+        <div class="hero__content">
+          <p class="brand-lockup" data-company-name>Company Name</p>
+          <h1>Fire protection installed with care.</h1>
+          <p class="hero__lede">
+            Sealing, barriers, and code-ready firestop work for buildings that
+            need to stay safe.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contact">Send a message</a>
+            <a class="btn btn--ghost" href="#work">See our work</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="work" id="work" aria-labelledby="work-title">
+        <div class="section-intro">
+          <h2 id="work-title">Our work</h2>
+          <p>Recent firestop and protection projects on active jobsites.</p>
+        </div>
+        <div class="work-grid">
+          <figure class="work-item reveal">
+            <img
+              src="./assets/work/work-01.jpg"
+              alt="Concrete formwork and crew on a commercial construction site"
+              width="1200"
+              height="800"
+              loading="lazy"
+            />
+            <figcaption>Concrete assemblies</figcaption>
+          </figure>
+          <figure class="work-item reveal">
+            <img
+              src="./assets/work/work-02.jpg"
+              alt="Construction crew installing protection on a commercial site"
+              width="1200"
+              height="795"
+              loading="lazy"
+            />
+            <figcaption>Jobsite install</figcaption>
+          </figure>
+          <figure class="work-item reveal">
+            <img
+              src="./assets/work/work-03.jpg"
+              alt="Trades worker on a commercial jobsite"
+              width="1200"
+              height="800"
+              loading="lazy"
+            />
+            <figcaption>On-site crew</figcaption>
+          </figure>
+          <figure class="work-item reveal">
+            <img
+              src="./assets/work/work-04.jpg"
+              alt="Structural framing on a multi-story commercial building"
+              width="1200"
+              height="675"
+              loading="lazy"
+            />
+            <figcaption>Structural openings</figcaption>
+          </figure>
+          <figure class="work-item reveal">
+            <img
+              src="./assets/work/work-05.jpg"
+              alt="Technician sealing and finishing an installed system on site"
+              width="1200"
+              height="800"
+              loading="lazy"
+            />
+            <figcaption>System sealing</figcaption>
+          </figure>
+          <figure class="work-item reveal">
+            <img
+              src="./assets/work/work-06.jpg"
+              alt="Finished commercial corridor with glass partitions"
+              width="1600"
+              height="900"
+              loading="lazy"
+            />
+            <figcaption>Commercial interiors</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact__panel reveal">
+          <div class="section-intro">
+            <h2 id="contact-title">Write to us</h2>
+            <p>
+              Tell us about your project. Your message opens in your email app
+              addressed to
+              <a href="mailto:professionalfirestopllc@gmail.com"
+                >professionalfirestopllc@gmail.com</a
+              >.
+            </p>
+          </div>
+
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="field">
+              <label for="name">Your name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                required
+                placeholder="Full name"
+              />
+            </div>
+            <div class="field">
+              <label for="email">Your email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="you@example.com"
+              />
+            </div>
+            <div class="field field--full">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+                placeholder="Describe the building, the work needed, and timing…"
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">
+                Open email draft
+              </button>
+              <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <span data-company-name>Company Name</span>
+        ·
+        <a href="mailto:professionalfirestopllc@gmail.com"
+          >professionalfirestopllc@gmail.com</a
+        >
+      </p>
+    </footer>
+
     <script src="./app.js"></script>
   </body>
 </html>

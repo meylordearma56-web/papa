@@ -321,6 +321,24 @@ a {
   font-weight: 600;
 }
 
+.contact-phone {
+  margin: 0.65rem 0 0;
+}
+
+.contact-phone a {
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.contact-phone a:hover,
+.contact-phone a:focus-visible {
+  color: var(--ember-deep);
+  outline: none;
+}
+
 .work-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);

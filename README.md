@@ -1,6 +1,6 @@
-# Profesional Firestop LLC
+# Company website
 
-Company name displayed in the top right of a blank HTTPS page for PC and mobile.
+A company site with a work gallery and a contact form that opens an email draft to `professionalfirestopllc@gmail.com`.
 
 ## Run
 
@@ -8,9 +8,10 @@ Company name displayed in the top right of a blank HTTPS page for PC and mobile.
 npm start
 ```
 
-Then open:
+Open `http://localhost:3000` on your PC, or the printed Network URL on your phone (same Wi‑Fi).
 
-- PC: `https://localhost:8443`
-- Mobile (same Wi‑Fi): `https://<your-computer-ip>:8443`
+## Customize later
 
-The first run creates a self-signed certificate in `certs/`. Browsers will show a security warning — choose **Advanced → Proceed** (or the equivalent) to continue.
+- **Company name:** replace every `Company Name` in `public/index.html` (also marked with `data-company-name`)
+- **Logo:** replace `public/assets/logo.svg` with your logo file and keep the same path (or update the `<img>` `src`)
+- **Work photos:** replace files in `public/assets/work/`

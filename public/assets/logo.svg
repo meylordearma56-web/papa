@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Logo placeholder">
+  <rect width="64" height="64" rx="8" fill="#c83920"/>
+  <path d="M32 12c-6.5 10-14 16.5-14 26a14 14 0 0 0 28 0c0-9.5-7.5-16-14-26z" fill="#fff"/>
+  <path d="M32 28c-3.2 5-7 8.2-7 13a7 7 0 0 0 14 0c0-4.8-3.8-8-7-13z" fill="#c83920"/>
+</svg>

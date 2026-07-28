@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: profesional-firestop-llc
+    runtime: static
+    branch: cursor/company-website-60c9
+    buildCommand: "true"
+    staticPublishPath: ./public
+    autoDeployTrigger: commit

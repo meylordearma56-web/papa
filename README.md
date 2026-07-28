@@ -2,7 +2,17 @@
 
 Website for Profesional Firestop LLC — core drilling, GPR, and concrete cutting.
 
-## Run
+## Live HTTPS (Render)
+
+Deploy to Render for a permanent HTTPS link:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://dashboard.render.com/blueprints/new?repo=https://github.com/meylordearma56-web/papa&branch=cursor/company-website-60c9)
+
+After deploy, your site URL will look like:
+
+`https://profesional-firestop-llc.onrender.com`
+
+## Run locally
 
 ```bash
 npm start

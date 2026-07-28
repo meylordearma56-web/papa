@@ -1,5 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Logo placeholder">
-  <rect width="64" height="64" rx="8" fill="#c83920"/>
-  <path d="M32 12c-6.5 10-14 16.5-14 26a14 14 0 0 0 28 0c0-9.5-7.5-16-14-26z" fill="#fff"/>
-  <path d="M32 28c-3.2 5-7 8.2-7 13a7 7 0 0 0 14 0c0-4.8-3.8-8-7-13z" fill="#c83920"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 160" role="img" aria-label="Profesional Firestop LLC logo">
+  <defs>
+    <filter id="letterShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="1.2" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <!-- Left P panel -->
+  <rect x="8" y="42" width="110" height="76" rx="14" fill="#e10600"/>
+  <rect x="18" y="52" width="90" height="56" rx="8" fill="#ffffff"/>
+  <text
+    x="63"
+    y="97"
+    text-anchor="middle"
+    font-family="Times New Roman, Times, serif"
+    font-size="58"
+    font-weight="700"
+    fill="#e10600"
+    filter="url(#letterShadow)"
+  >P</text>
+
+  <!-- Center stop-sign octagon -->
+  <polygon
+    points="210,12 258,32 278,80 258,128 210,148 162,128 142,80 162,32"
+    fill="#e10600"
+  />
+  <polygon
+    points="210,22 250,38 266,80 250,122 210,138 170,122 154,80 170,38"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="5"
+  />
+
+  <!-- Yellow flame -->
+  <path
+    d="M210 44
+       C198 62 188 72 188 90
+       C188 106 198 116 210 116
+       C222 116 232 106 232 90
+       C232 72 222 62 210 44 Z
+       M210 68
+       C204 76 200 82 200 90
+       C200 98 204 104 210 104
+       C216 104 220 98 220 90
+       C220 82 216 76 210 68 Z"
+    fill="#ffd400"
+  />
+  <path
+    d="M210 68
+       C204 76 200 82 200 90
+       C200 98 204 104 210 104
+       C216 104 220 98 220 90
+       C220 82 216 76 210 68 Z"
+    fill="#e10600"
+  />
+
+  <!-- Prohibition bar -->
+  <rect
+    x="156"
+    y="72"
+    width="108"
+    height="16"
+    rx="3"
+    fill="#e10600"
+    transform="rotate(-38 210 80)"
+  />
+  <rect
+    x="156"
+    y="76"
+    width="108"
+    height="8"
+    rx="2"
+    fill="#ffffff"
+    transform="rotate(-38 210 80)"
+    opacity="0.35"
+  />
+
+  <!-- Center F -->
+  <text
+    x="210"
+    y="128"
+    text-anchor="middle"
+    font-family="Times New Roman, Times, serif"
+    font-size="54"
+    font-weight="700"
+    fill="#ffffff"
+    filter="url(#letterShadow)"
+  >F</text>
+
+  <!-- Right L panel -->
+  <rect x="302" y="42" width="110" height="76" rx="14" fill="#e10600"/>
+  <rect x="312" y="52" width="90" height="56" rx="8" fill="#ffffff"/>
+  <text
+    x="357"
+    y="97"
+    text-anchor="middle"
+    font-family="Times New Roman, Times, serif"
+    font-size="58"
+    font-weight="700"
+    fill="#e10600"
+    filter="url(#letterShadow)"
+  >L</text>
 </svg>

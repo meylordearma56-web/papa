@@ -3,10 +3,11 @@
   --ink-soft: #3a434c;
   --paper: #eef1f4;
   --paper-2: #d9e0e7;
-  --ember: #c83920;
-  --ember-deep: #9e2a16;
+  --ember: #e10600;
+  --ember-deep: #b80500;
+  --signal: #ffd400;
   --steel: #6d7884;
-  --header-h: 4.25rem;
+  --header-h: 4.5rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: "Archivo Black", sans-serif;
   --font-body: "Manrope", sans-serif;
@@ -86,16 +87,17 @@ a {
 }
 
 .brand__logo {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: auto;
+  height: 2.65rem;
   flex: 0 0 auto;
+  background: #ffffff;
   border-radius: 0.35rem;
-  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0.35rem;
 }
 
 .brand__name {
   font-family: var(--font-display);
-  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  font-size: clamp(0.78rem, 1.8vw, 1.05rem);
   letter-spacing: 0.02em;
   text-transform: uppercase;
   line-height: 1.1;
@@ -104,12 +106,24 @@ a {
   text-overflow: ellipsis;
 }
 
+@media (max-width: 560px) {
+  .brand__name {
+    display: none;
+  }
+
+  .brand__logo {
+    height: 2.35rem;
+  }
+}
+
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 0.85rem 1.1rem;
   font-size: 0.92rem;
   font-weight: 600;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav a {
@@ -122,6 +136,67 @@ a {
 .nav a:focus-visible {
   opacity: 1;
   outline: none;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0.35rem;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.site-header.is-solid .lang-switch {
+  border-color: rgba(18, 22, 26, 0.16);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.lang-switch__btn {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.4rem 0.65rem;
+  line-height: 1;
+  opacity: 0.72;
+  transition:
+    background-color 0.25s var(--ease),
+    opacity 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.lang-switch__btn + .lang-switch__btn {
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.site-header.is-solid .lang-switch__btn + .lang-switch__btn {
+  border-left-color: rgba(18, 22, 26, 0.12);
+}
+
+.lang-switch__btn.is-active {
+  opacity: 1;
+  background: var(--ember);
+  color: #fff;
+}
+
+.lang-switch__btn:hover,
+.lang-switch__btn:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
+@media (max-width: 560px) {
+  .lang-switch__btn {
+    padding: 0.38rem 0.5rem;
+    font-size: 0.72rem;
+  }
 }
 
 .hero {
@@ -245,8 +320,44 @@ a {
 }
 
 .work,
-.contact {
+.contact,
+.services {
   padding: clamp(3.5rem, 9vw, 6rem) clamp(1rem, 3vw, 2rem);
+}
+
+.service-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .service-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.service-list li {
+  padding: 1.25rem 0 0;
+  border-top: 3px solid var(--ember);
+}
+
+.service-list h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.8vw, 1.55rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.service-list p {
+  margin: 0.65rem 0 0;
+  color: var(--ink-soft);
+  max-width: 28ch;
 }
 
 .section-intro {
@@ -271,6 +382,24 @@ a {
 .section-intro a {
   color: var(--ember-deep);
   font-weight: 600;
+}
+
+.contact-phone {
+  margin: 0.65rem 0 0;
+}
+
+.contact-phone a {
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.contact-phone a:hover,
+.contact-phone a:focus-visible {
+  color: var(--ember-deep);
+  outline: none;
 }
 
 .work-grid {
@@ -434,6 +563,26 @@ a {
   border-top: 1px solid rgba(18, 22, 26, 0.08);
   color: var(--ink-soft);
   font-size: 0.92rem;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.1rem;
+}
+
+.site-footer__brand img {
+  width: auto;
+  height: 2.5rem;
+  background: #fff;
+  border-radius: 0.3rem;
+  padding: 0.15rem 0.3rem;
+}
+
+.site-footer__brand p {
+  margin: 0;
+  max-width: 40rem;
 }
 
 .site-footer a {

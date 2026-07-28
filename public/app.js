@@ -3,9 +3,14 @@ const LANG_KEY = "pfl-lang";
 
 const translations = {
   en: {
-    pageTitle: "Profesional Firestop LLC",
+    pageTitle:
+      "Profesional Firestop LLC | Core Drilling, GPR & Concrete Cutting",
     metaDescription:
-      "Profesional Firestop LLC — core drilling, GPR, and concrete cutting.",
+      "Profesional Firestop LLC offers core drilling, GPR scanning, and concrete cutting for commercial and residential jobs. Call +1 (201) 917-6120.",
+    ogTitle:
+      "Profesional Firestop LLC | Core Drilling, GPR & Concrete Cutting",
+    ogDescription:
+      "Core drilling, GPR scanning, and concrete cutting for commercial and residential jobs.",
     brandHomeAria: "Profesional Firestop LLC home",
     navAria: "Primary",
     langGroupAria: "Language",
@@ -62,9 +67,14 @@ const translations = {
       'Profesional Firestop LLC · Core drilling, GPR, and concrete cutting · <a href="mailto:professionalfirestopllc@gmail.com">professionalfirestopllc@gmail.com</a>',
   },
   es: {
-    pageTitle: "Profesional Firestop LLC",
+    pageTitle:
+      "Profesional Firestop LLC | Perforación de núcleo, GPR y corte de concreto",
     metaDescription:
-      "Profesional Firestop LLC — perforación de núcleo, GPR y corte de concreto.",
+      "Profesional Firestop LLC ofrece perforación de núcleo, escaneo GPR y corte de concreto para trabajos comerciales y residenciales. Llame al +1 (201) 917-6120.",
+    ogTitle:
+      "Profesional Firestop LLC | Perforación de núcleo, GPR y corte de concreto",
+    ogDescription:
+      "Perforación de núcleo, escaneo GPR y corte de concreto para trabajos comerciales y residenciales.",
     brandHomeAria: "Inicio de Profesional Firestop LLC",
     navAria: "Principal",
     langGroupAria: "Idioma",

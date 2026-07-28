@@ -4,15 +4,24 @@ Website for Profesional Firestop LLC — core drilling, GPR, and concrete cuttin
 
 ## Live website (HTTPS)
 
-Open this link in **Chrome** or any browser (do not search for it on your computer):
+Open this link in **any browser** (Chrome, Edge, Safari, Firefox):
 
 **https://profesional-firestop-llc.onrender.com/**
 
 Steps:
-1. Open Google Chrome
+1. Open your browser (Chrome, Edge, Safari, or Firefox)
 2. Click the address bar at the top
 3. Paste: `https://profesional-firestop-llc.onrender.com/`
 4. Press Enter
+
+### Find it in Google or Edge search
+
+After Google/Bing index the site, you can search for **Profesional Firestop LLC**.
+
+To speed that up:
+1. Google: https://search.google.com/search-console → add the site URL → request indexing
+2. Bing/Edge: https://www.bing.com/webmasters → add the site URL → submit sitemap  
+   Sitemap: `https://profesional-firestop-llc.onrender.com/sitemap.xml`
 
 ## Deploy on Render
 

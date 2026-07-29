@@ -199,37 +199,66 @@ a {
   }
 }
 
-.intro {
+.landing {
   position: relative;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
   color: #f7f8fa;
-  overflow: hidden;
-  text-align: center;
+  overflow: clip;
 }
 
-.intro__media {
+.landing__media {
   position: absolute;
   inset: 0;
   z-index: 0;
 }
 
-.intro__media img {
+.landing__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.08);
+  object-position: center 35%;
+  transform: scale(1.06);
   animation: hero-drift 18s var(--ease) infinite alternate;
 }
 
-.intro__media::after {
+.landing__media::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(70% 60% at 50% 45%, rgba(10, 12, 14, 0.2), rgba(10, 12, 14, 0.72) 70%),
-    linear-gradient(180deg, rgba(10, 12, 14, 0.45) 0%, rgba(10, 12, 14, 0.55) 100%);
+    linear-gradient(
+      180deg,
+      rgba(10, 12, 14, 0.52) 0%,
+      rgba(10, 12, 14, 0.34) 28%,
+      rgba(10, 12, 14, 0.22) 48%,
+      rgba(10, 12, 14, 0.42) 72%,
+      rgba(10, 12, 14, 0.78) 100%
+    ),
+    linear-gradient(90deg, rgba(10, 12, 14, 0.45) 0%, transparent 58%);
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.intro::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: min(38vh, 18rem);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 12, 14, 0) 0%,
+    rgba(10, 12, 14, 0.18) 45%,
+    rgba(10, 12, 14, 0.42) 100%
+  );
 }
 
 .intro__content {
@@ -295,34 +324,27 @@ a {
 
 .hero {
   position: relative;
+  z-index: 1;
   min-height: 100dvh;
   display: grid;
   align-items: end;
-  color: #f7f8fa;
   overflow: hidden;
 }
 
-.hero__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.06);
-  animation: hero-drift 18s var(--ease) infinite alternate;
-}
-
-.hero__media::after {
+.hero::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(10, 12, 14, 0.35) 0%, rgba(10, 12, 14, 0.18) 35%, rgba(10, 12, 14, 0.78) 100%),
-    linear-gradient(90deg, rgba(10, 12, 14, 0.55) 0%, transparent 55%);
+  left: 0;
+  right: 0;
+  top: 0;
+  height: min(42vh, 20rem);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 12, 14, 0.42) 0%,
+    rgba(10, 12, 14, 0.18) 48%,
+    rgba(10, 12, 14, 0) 100%
+  );
 }
 
 .hero__content {
@@ -752,10 +774,9 @@ a {
     scroll-behavior: auto;
   }
 
-  .intro__media img,
   .intro__content,
   .intro__scroll,
-  .hero__media img,
+  .landing__media img,
   .hero__content,
   .reveal,
   .work-item img,

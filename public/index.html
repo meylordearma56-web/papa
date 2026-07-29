@@ -96,7 +96,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260729" />
+    <link rel="stylesheet" href="./styles.css?v=20260729b" />
 
     <script type="application/ld+json">
       {
@@ -199,7 +199,42 @@
     </header>
 
     <main id="top">
-      <section class="hero" aria-label="Introduction" data-i18n="heroAria" data-i18n-attr="aria-label">
+      <section
+        class="intro"
+        id="intro"
+        aria-label="Welcome"
+        data-i18n="introAria"
+        data-i18n-attr="aria-label"
+      >
+        <div class="intro__media" aria-hidden="true">
+          <img
+            src="./assets/work/hero.jpg?v=20260729"
+            alt=""
+            width="2000"
+            height="1333"
+          />
+        </div>
+        <div class="intro__content">
+          <img
+            class="intro__logo"
+            src="./assets/logo.png"
+            alt=""
+            width="168"
+            height="112"
+          />
+          <h1 class="intro__title" data-i18n="introTitle">
+            Bienvenido A Profesional Firestop LLC
+          </h1>
+          <p class="intro__lede" data-i18n="introLede">
+            Baja para ver nuestros servicios, trabajos y contacto.
+          </p>
+          <a class="intro__scroll" href="#services" data-i18n="introScroll">
+            Bajar
+          </a>
+        </div>
+      </section>
+
+      <section class="hero reveal" aria-label="Introduction" data-i18n="heroAria" data-i18n-attr="aria-label">
         <div class="hero__media" aria-hidden="true">
           <img
             src="./assets/work/hero.jpg?v=20260729"
@@ -222,7 +257,7 @@
         </div>
       </section>
 
-      <section class="services" id="services" aria-labelledby="services-title">
+      <section class="services reveal" id="services" aria-labelledby="services-title">
         <div class="section-intro">
           <h2 id="services-title" data-i18n="servicesTitle">What we do</h2>
           <p data-i18n="servicesIntro">Focused concrete services for builders, GCs, and property teams.</p>
@@ -243,7 +278,7 @@
         </ul>
       </section>
 
-      <section class="work" id="work" aria-labelledby="work-title">
+      <section class="work reveal" id="work" aria-labelledby="work-title">
         <div class="section-intro">
           <h2 id="work-title" data-i18n="workTitle">Our work</h2>
           <p data-i18n="workIntro">Jobsite photos from drilling, scanning, and concrete cutting projects.</p>
@@ -324,7 +359,7 @@
         </div>
       </section>
 
-      <section class="contact" id="contact" aria-labelledby="contact-title">
+      <section class="contact reveal" id="contact" aria-labelledby="contact-title">
         <div class="contact__panel reveal">
           <div class="section-intro">
             <h2 id="contact-title" data-i18n="contactTitle">Write to us</h2>
@@ -412,6 +447,6 @@
       </div>
     </footer>
 
-    <script src="./app.js?v=20260729"></script>
+    <script src="./app.js?v=20260729b"></script>
   </body>
 </html>

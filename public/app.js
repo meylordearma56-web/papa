@@ -16,6 +16,10 @@ const translations = {
     langGroupAria: "Language",
     navWork: "Work",
     navContact: "Contact",
+    introAria: "Welcome",
+    introTitle: "Welcome to Profesional Firestop LLC",
+    introLede: "Scroll down to see our services, work, and contact.",
+    introScroll: "Scroll down",
     heroAria: "Introduction",
     heroTitle: "Core drilling, GPR, and concrete cutting.",
     heroLede:
@@ -80,6 +84,10 @@ const translations = {
     langGroupAria: "Idioma",
     navWork: "Trabajos",
     navContact: "Contacto",
+    introAria: "Bienvenida",
+    introTitle: "Bienvenido A Profesional Firestop LLC",
+    introLede: "Baja para ver nuestros servicios, trabajos y contacto.",
+    introScroll: "Bajar",
     heroAria: "Introducción",
     heroTitle: "Perforación de núcleo, GPR y corte de concreto.",
     heroLede:
@@ -225,11 +233,11 @@ if (form) {
 
 const revealItems = document.querySelectorAll(".reveal");
 const header = document.querySelector(".site-header");
-const hero = document.querySelector(".hero");
+const intro = document.querySelector(".intro");
 
 function updateHeader() {
-  if (!header || !hero) return;
-  const threshold = Math.max(hero.offsetHeight * 0.72, 120);
+  if (!header || !intro) return;
+  const threshold = Math.max(intro.offsetHeight * 0.72, 120);
   header.classList.toggle("is-solid", window.scrollY > threshold);
 }
 

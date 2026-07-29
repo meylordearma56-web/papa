@@ -199,6 +199,100 @@ a {
   }
 }
 
+.intro {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  color: #f7f8fa;
+  overflow: hidden;
+  text-align: center;
+}
+
+.intro__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.intro__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  animation: hero-drift 18s var(--ease) infinite alternate;
+}
+
+.intro__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgba(10, 12, 14, 0.2), rgba(10, 12, 14, 0.72) 70%),
+    linear-gradient(180deg, rgba(10, 12, 14, 0.45) 0%, rgba(10, 12, 14, 0.55) 100%);
+}
+
+.intro__content {
+  position: relative;
+  z-index: 1;
+  width: min(40rem, calc(100% - 2rem));
+  padding: calc(var(--header-h) + 1rem) 1rem 2rem;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  animation: rise-in 0.95s var(--ease) both;
+}
+
+.intro__logo {
+  width: auto;
+  height: clamp(3.2rem, 10vw, 4.5rem);
+  background: #fff;
+  border-radius: 0.4rem;
+  padding: 0.25rem 0.45rem;
+}
+
+.intro__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.intro__lede {
+  margin: 0;
+  max-width: 28ch;
+  color: rgba(247, 248, 250, 0.86);
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  font-weight: 500;
+}
+
+.intro__scroll {
+  margin-top: 0.75rem;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  animation: scroll-nudge 1.8s var(--ease) infinite;
+}
+
+.intro__scroll::after {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
 .hero {
   position: relative;
   min-height: 100dvh;
@@ -643,11 +737,24 @@ a {
   }
 }
 
+@keyframes scroll-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.4rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
+  .intro__media img,
+  .intro__content,
+  .intro__scroll,
   .hero__media img,
   .hero__content,
   .reveal,

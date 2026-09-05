@@ -539,12 +539,12 @@ function createWorld(canvas) {
 
     smoothProgress += (targetProgress - smoothProgress) * 0.08;
     const depth = smoothProgress * ((SUBJECTS.length - 1) * 18);
-    const sway = Math.sin(smoothProgress * Math.PI * 2) * 0.35;
+    const sway = Math.sin(smoothProgress * Math.PI * 2) * 0.18;
 
     camera.position.x = THREE.MathUtils.lerp(camera.position.x, sway, 0.08);
-    camera.position.y = 1.35 + Math.sin(smoothProgress * Math.PI) * 0.15;
+    camera.position.y = 1.35 + Math.sin(smoothProgress * Math.PI) * 0.1;
     camera.position.z = 8 - depth;
-    camera.lookAt(sway * 0.4, 1.1, camera.position.z - 10);
+    camera.lookAt(sway * 0.25, 1.05, camera.position.z - 10);
 
     ember.position.z = camera.position.z - 4;
     signal.position.z = camera.position.z - 14;
@@ -557,7 +557,7 @@ function createWorld(canvas) {
 
     dust.rotation.z = Math.sin(now * 0.00015) * 0.04;
     photoPlanes.forEach((plane, index) => {
-      plane.position.y = 1.1 + Math.sin(now * 0.001 + index) * 0.12;
+      plane.position.y = 0.55 + Math.sin(now * 0.001 + index) * 0.08;
     });
 
     renderer.render(scene, camera);

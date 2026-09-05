@@ -302,6 +302,11 @@ function syncSubjectUI(id, progress) {
   if (header) {
     header.classList.toggle("is-solid", id !== "intro");
   }
+
+  const footer = document.querySelector(".site-footer");
+  if (footer) {
+    footer.classList.toggle("is-visible", id === "contact");
+  }
 }
 
 document.querySelectorAll("[data-subject-link]").forEach((el) => {

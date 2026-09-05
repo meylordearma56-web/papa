@@ -695,6 +695,38 @@ a {
   background: #0b0e11;
 }
 
+body.is-3d .site-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 25;
+  margin: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(11, 14, 17, 0.92) 35%,
+    #0b0e11 100%
+  );
+  border-top: 0;
+  opacity: 0;
+  transform: translateY(1.25rem);
+  pointer-events: none;
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.4s var(--ease);
+}
+
+body.is-3d .site-footer.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.subject--contact.is-active .subject__content {
+  padding-bottom: 6.5rem;
+}
+
 .site-footer__brand {
   display: grid;
   gap: 0.65rem;

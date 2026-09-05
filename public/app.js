@@ -1,5 +1,9 @@
+import * as THREE from "three";
+
 const CONTACT_EMAIL = "professionalfirestopllc@gmail.com";
 const LANG_KEY = "pfl-lang";
+const SUBJECTS = ["intro", "hero", "services", "work", "contact"];
+const SUBJECT_SPAN_VH = 120;
 
 const translations = {
   en: {
@@ -14,12 +18,14 @@ const translations = {
     brandHomeAria: "Profesional Firestop LLC home",
     navAria: "Primary",
     langGroupAria: "Language",
+    subjectRailAria: "Subjects",
+    navServices: "Services",
     navWork: "Work",
     navContact: "Contact",
     introAria: "Welcome",
     introTitle: "Welcome to Profesional Firestop LLC",
-    introLede: "Scroll down to see our services, work, and contact.",
-    introScroll: "Scroll down",
+    introLede: "Scroll to move through our services, work, and contact.",
+    introScroll: "Scroll forward",
     heroAria: "Introduction",
     heroTitle: "Core drilling, GPR, and concrete cutting.",
     heroLede:
@@ -82,12 +88,14 @@ const translations = {
     brandHomeAria: "Inicio de Profesional Firestop LLC",
     navAria: "Principal",
     langGroupAria: "Idioma",
+    subjectRailAria: "Temas",
+    navServices: "Servicios",
     navWork: "Trabajos",
     navContact: "Contacto",
     introAria: "Bienvenida",
     introTitle: "Bienvenido A Profesional Firestop LLC",
-    introLede: "Baja para ver nuestros servicios, trabajos y contacto.",
-    introScroll: "Bajar",
+    introLede: "Desplázate para avanzar por nuestros servicios, trabajos y contacto.",
+    introScroll: "Avanzar",
     heroAria: "Introducción",
     heroTitle: "Perforación de núcleo, GPR y corte de concreto.",
     heroLede:
@@ -141,6 +149,8 @@ const translations = {
 };
 
 let currentLang = "en";
+let activeSubject = "intro";
+let world = null;
 
 function getInitialLang() {
   const saved = localStorage.getItem(LANG_KEY);
@@ -164,9 +174,6 @@ function applyTranslations(lang) {
     const attr = el.getAttribute("data-i18n-attr");
     if (attr) {
       el.setAttribute(attr, value);
-      if (attr === "content" && el.tagName === "META") {
-        // content already set
-      }
       return;
     }
 
@@ -231,34 +238,376 @@ if (form) {
   });
 }
 
-const revealItems = document.querySelectorAll(".reveal");
-const header = document.querySelector(".site-header");
-const intro = document.querySelector(".intro");
-
-function updateHeader() {
-  if (!header || !intro) return;
-  const threshold = Math.max(intro.offsetHeight * 0.72, 120);
-  header.classList.toggle("is-solid", window.scrollY > threshold);
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-updateHeader();
-window.addEventListener("scroll", updateHeader, { passive: true });
-window.addEventListener("resize", updateHeader);
+function canUseWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch {
+    return false;
+  }
+}
 
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      }
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+function subjectIndex(id) {
+  const index = SUBJECTS.indexOf(id);
+  return index < 0 ? 0 : index;
+}
+
+function scrollToSubject(id, behavior = "smooth") {
+  const index = subjectIndex(id);
+  const rail = document.getElementById("scroll-rail");
+  if (!rail || document.body.classList.contains("is-flat")) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior, block: "start" });
+    return;
+  }
+
+  const maxScroll = Math.max(
+    document.documentElement.scrollHeight - window.innerHeight,
+    1
+  );
+  const target = (index / Math.max(SUBJECTS.length - 1, 1)) * maxScroll;
+  window.scrollTo({ top: target, behavior });
+}
+
+function syncSubjectUI(id, progress) {
+  activeSubject = id;
+
+  document.querySelectorAll(".subject").forEach((section) => {
+    const key = section.getAttribute("data-subject");
+    const index = subjectIndex(key);
+    const local = progress * (SUBJECTS.length - 1) - index;
+    section.classList.toggle("is-active", Math.abs(local) < 0.42);
+    section.classList.toggle("is-passing-out", local > 0.42 && local < 1.05);
+    section.classList.toggle("is-passing-in", local < -0.42 && local > -1.05);
+  });
+
+  document.querySelectorAll("[data-subject-link]").forEach((link) => {
+    const key = link.getAttribute("data-subject-link");
+    link.classList.toggle("is-current", key === id);
+  });
+
+  document.querySelectorAll(".subject-rail__dot").forEach((dot) => {
+    const key = dot.getAttribute("data-subject-link");
+    dot.classList.toggle("is-active", key === id);
+  });
+
+  const header = document.querySelector(".site-header");
+  if (header) {
+    header.classList.toggle("is-solid", id !== "intro");
+  }
+}
+
+document.querySelectorAll("[data-subject-link]").forEach((el) => {
+  el.addEventListener("click", (event) => {
+    const id = el.getAttribute("data-subject-link");
+    if (!id) return;
+    event.preventDefault();
+    scrollToSubject(id);
+  });
+});
+
+function createWorld(canvas) {
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: false,
+    powerPreference: "high-performance",
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  renderer.setClearColor(0x0b0e11, 1);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0b0e11, 0.028);
+
+  const camera = new THREE.PerspectiveCamera(
+    55,
+    window.innerWidth / Math.max(window.innerHeight, 1),
+    0.1,
+    200
+  );
+  camera.position.set(0, 1.4, 8);
+
+  const ambient = new THREE.AmbientLight(0x9aa7b5, 0.55);
+  scene.add(ambient);
+
+  const key = new THREE.DirectionalLight(0xffffff, 1.15);
+  key.position.set(4, 8, 6);
+  scene.add(key);
+
+  const ember = new THREE.PointLight(0xe10600, 28, 40, 2);
+  ember.position.set(-3, 2.5, 2);
+  scene.add(ember);
+
+  const signal = new THREE.PointLight(0xffd400, 8, 28, 2);
+  signal.position.set(4, 1.5, -8);
+  scene.add(signal);
+
+  const tunnel = new THREE.Group();
+  scene.add(tunnel);
+
+  function sideOffset(index) {
+    return index % 2 === 0 ? -2.8 : 2.8;
+  }
+
+  const floorGeo = new THREE.PlaneGeometry(40, 160);
+  const floorMat = new THREE.MeshStandardMaterial({
+    color: 0x1a2229,
+    roughness: 0.92,
+    metalness: 0.08,
+  });
+  const floor = new THREE.Mesh(floorGeo, floorMat);
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.set(0, -2.2, -40);
+  tunnel.add(floor);
+
+  const wallMat = new THREE.MeshStandardMaterial({
+    color: 0x151b21,
+    roughness: 0.95,
+    metalness: 0.05,
+    side: THREE.DoubleSide,
+  });
+
+  [-1, 1].forEach((side) => {
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(160, 18), wallMat);
+    wall.position.set(side * 8.5, 2, -40);
+    wall.rotation.y = side * -Math.PI / 2;
+    tunnel.add(wall);
+  });
+
+  const ringGeo = new THREE.TorusGeometry(1.15, 0.08, 12, 48);
+  const ringMat = new THREE.MeshStandardMaterial({
+    color: 0xe10600,
+    emissive: 0x5a0200,
+    roughness: 0.35,
+    metalness: 0.7,
+  });
+
+  const steelMat = new THREE.MeshStandardMaterial({
+    color: 0x8a95a1,
+    roughness: 0.4,
+    metalness: 0.85,
+  });
+
+  const markers = [];
+  SUBJECTS.forEach((_, index) => {
+    const z = -index * 18;
+    const group = new THREE.Group();
+    group.position.set(0, 0, z);
+
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.position.set(sideOffset(index), 0.8, 0);
+    ring.rotation.y = Math.PI / 2;
+    group.add(ring);
+
+    const core = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.35, 0.35, 2.4, 24),
+      steelMat
+    );
+    core.position.set(sideOffset(index), 0.2, -1.2);
+    core.rotation.z = Math.PI / 2;
+    group.add(core);
+
+    const disk = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.4, 1.4, 0.08, 48),
+      new THREE.MeshStandardMaterial({
+        color: 0x2a323a,
+        roughness: 0.55,
+        metalness: 0.6,
+        emissive: 0x180000,
+      })
+    );
+    disk.position.set(-sideOffset(index) * 0.85, 0.4, -2.2);
+    disk.rotation.x = Math.PI / 2;
+    group.add(disk);
+
+    tunnel.add(group);
+    markers.push({ group, ring, disk, core });
+  });
+
+  const loader = new THREE.TextureLoader();
+  const workPaths = [
+    "./assets/work/hero.jpg?v=20260905",
+    "./assets/work/work-01.jpg?v=20260905",
+    "./assets/work/work-02.jpg?v=20260905",
+    "./assets/work/work-03.jpg?v=20260905",
+    "./assets/work/work-04.jpg?v=20260905",
+    "./assets/work/work-05.jpg?v=20260905",
+    "./assets/work/work-06.jpg?v=20260905",
+  ];
+
+  const photoPlanes = [];
+  workPaths.forEach((path, index) => {
+    const texture = loader.load(path);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    const aspect = 1.5;
+    const height = 3.2;
+    const width = height * aspect;
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(width, height),
+      new THREE.MeshBasicMaterial({ map: texture, toneMapped: false })
+    );
+    const lane = index % 2 === 0 ? -4.2 : 4.2;
+    const z = -6 - index * 9.5;
+    mesh.position.set(lane, 1.1, z);
+    mesh.rotation.y = lane > 0 ? -0.35 : 0.35;
+    tunnel.add(mesh);
+    photoPlanes.push(mesh);
+
+    const frame = new THREE.Mesh(
+      new THREE.PlaneGeometry(width + 0.18, height + 0.18),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.08, transparent: true })
+    );
+    frame.position.copy(mesh.position);
+    frame.position.z -= 0.02;
+    frame.rotation.copy(mesh.rotation);
+    tunnel.add(frame);
+  });
+
+  const dustCount = 900;
+  const dustPositions = new Float32Array(dustCount * 3);
+  for (let i = 0; i < dustCount; i += 1) {
+    dustPositions[i * 3] = (Math.random() - 0.5) * 16;
+    dustPositions[i * 3 + 1] = Math.random() * 8 - 1;
+    dustPositions[i * 3 + 2] = -Math.random() * 110;
+  }
+  const dustGeo = new THREE.BufferGeometry();
+  dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
+  const dust = new THREE.Points(
+    dustGeo,
+    new THREE.PointsMaterial({
+      color: 0xc9d2db,
+      size: 0.035,
+      transparent: true,
+      opacity: 0.45,
+      depthWrite: false,
+    })
+  );
+  tunnel.add(dust);
+
+  let targetProgress = 0;
+  let smoothProgress = 0;
+  let raf = 0;
+  let disposed = false;
+
+  function resize() {
+    const width = window.innerWidth;
+    const height = Math.max(window.innerHeight, 1);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(width, height, false);
+  }
+
+  function setProgress(progress) {
+    targetProgress = THREE.MathUtils.clamp(progress, 0, 1);
+  }
+
+  function tick(now) {
+    if (disposed) return;
+    raf = requestAnimationFrame(tick);
+
+    smoothProgress += (targetProgress - smoothProgress) * 0.08;
+    const depth = smoothProgress * ((SUBJECTS.length - 1) * 18);
+    const sway = Math.sin(smoothProgress * Math.PI * 2) * 0.35;
+
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, sway, 0.08);
+    camera.position.y = 1.35 + Math.sin(smoothProgress * Math.PI) * 0.15;
+    camera.position.z = 8 - depth;
+    camera.lookAt(sway * 0.4, 1.1, camera.position.z - 10);
+
+    ember.position.z = camera.position.z - 4;
+    signal.position.z = camera.position.z - 14;
+
+    markers.forEach((marker, index) => {
+      marker.ring.rotation.x = now * 0.0007 + index;
+      marker.disk.rotation.z = now * 0.0009 + index * 0.4;
+      marker.core.rotation.x = now * 0.0012;
+    });
+
+    dust.rotation.z = Math.sin(now * 0.00015) * 0.04;
+    photoPlanes.forEach((plane, index) => {
+      plane.position.y = 1.1 + Math.sin(now * 0.001 + index) * 0.12;
+    });
+
+    renderer.render(scene, camera);
+  }
+
+  function dispose() {
+    disposed = true;
+    cancelAnimationFrame(raf);
+    renderer.dispose();
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  raf = requestAnimationFrame(tick);
+
+  return { setProgress, dispose, resize };
+}
+
+function setupScrollExperience() {
+  const rail = document.getElementById("scroll-rail");
+  const canvas = document.getElementById("scene3d");
+  if (!rail || !canvas) return;
+
+  document.documentElement.style.setProperty(
+    "--subject-count",
+    String(SUBJECTS.length)
+  );
+  document.documentElement.style.setProperty(
+    "--subject-span",
+    `${SUBJECT_SPAN_VH}vh`
   );
 
-  revealItems.forEach((item) => observer.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add("is-visible"));
+  if (prefersReducedMotion() || !canUseWebGL()) {
+    document.body.classList.remove("is-3d");
+    document.body.classList.add("is-flat");
+    return;
+  }
+
+  document.body.classList.add("is-3d");
+  document.body.classList.remove("is-flat");
+  world = createWorld(canvas);
+
+  let ticking = false;
+
+  function readProgress() {
+    const maxScroll = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      1
+    );
+    return THREE.MathUtils.clamp(window.scrollY / maxScroll, 0, 1);
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const progress = readProgress();
+      if (world) world.setProgress(progress);
+      const index = Math.round(progress * (SUBJECTS.length - 1));
+      syncSubjectUI(SUBJECTS[index], progress);
+      ticking = false;
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  const hash = window.location.hash.replace("#", "");
+  if (SUBJECTS.includes(hash)) {
+    requestAnimationFrame(() => scrollToSubject(hash, "auto"));
+  }
 }
+
+setupScrollExperience();

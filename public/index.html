@@ -96,7 +96,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260729c" />
+    <link rel="stylesheet" href="./styles.css?v=20260905a" />
 
     <script type="application/ld+json">
       {
@@ -155,15 +155,25 @@
         }
       }
     </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three.module.js"
+        }
+      }
+    </script>
   </head>
-  <body>
+  <body class="is-3d">
+    <canvas id="scene3d" class="scene3d" aria-hidden="true"></canvas>
+
     <header class="site-header">
       <a
         class="brand"
-        href="#top"
+        href="#intro"
         aria-label="Profesional Firestop LLC home"
         data-i18n="brandHomeAria"
         data-i18n-attr="aria-label"
+        data-subject-link="intro"
       >
         <img
           class="brand__logo"
@@ -193,234 +203,254 @@
             Español
           </button>
         </div>
-        <a href="#work" data-i18n="navWork">Work</a>
-        <a href="#contact" data-i18n="navContact">Contact</a>
+        <a href="#services" data-i18n="navServices" data-subject-link="services">Services</a>
+        <a href="#work" data-i18n="navWork" data-subject-link="work">Work</a>
+        <a href="#contact" data-i18n="navContact" data-subject-link="contact">Contact</a>
       </nav>
     </header>
 
-    <main id="top">
-      <div class="landing">
-        <div class="landing__media" aria-hidden="true">
+    <nav
+      class="subject-rail"
+      aria-label="Subjects"
+      data-i18n="subjectRailAria"
+      data-i18n-attr="aria-label"
+    >
+      <button type="button" class="subject-rail__dot is-active" data-subject-link="intro" aria-label="Welcome" data-i18n="introAria" data-i18n-attr="aria-label"></button>
+      <button type="button" class="subject-rail__dot" data-subject-link="hero" aria-label="Introduction" data-i18n="heroAria" data-i18n-attr="aria-label"></button>
+      <button type="button" class="subject-rail__dot" data-subject-link="services" aria-label="Services" data-i18n="servicesTitle" data-i18n-attr="aria-label"></button>
+      <button type="button" class="subject-rail__dot" data-subject-link="work" aria-label="Work" data-i18n="workTitle" data-i18n-attr="aria-label"></button>
+      <button type="button" class="subject-rail__dot" data-subject-link="contact" aria-label="Contact" data-i18n="contactTitle" data-i18n-attr="aria-label"></button>
+    </nav>
+
+    <div class="scroll-rail" id="scroll-rail" aria-hidden="true"></div>
+
+    <main id="top" class="stage">
+      <section
+        class="subject subject--intro is-active"
+        id="intro"
+        data-subject="intro"
+        aria-label="Welcome"
+        data-i18n="introAria"
+        data-i18n-attr="aria-label"
+      >
+        <div class="subject__content subject__content--center">
           <img
-            src="./assets/work/hero.jpg?v=20260729b"
+            class="intro__logo"
+            src="./assets/logo.png"
             alt=""
-            width="2000"
-            height="1333"
+            width="168"
+            height="112"
           />
+          <p class="brand-lockup brand-lockup--hero">Profesional Firestop LLC</p>
+          <h1 class="intro__title" data-i18n="introTitle">
+            Bienvenido A Profesional Firestop LLC
+          </h1>
+          <p class="intro__lede" data-i18n="introLede">
+            Baja para ver nuestros servicios, trabajos y contacto.
+          </p>
+          <a class="intro__scroll" href="#hero" data-i18n="introScroll" data-subject-link="hero">
+            Bajar
+          </a>
         </div>
-
-        <section
-          class="intro"
-          id="intro"
-          aria-label="Welcome"
-          data-i18n="introAria"
-          data-i18n-attr="aria-label"
-        >
-          <div class="intro__content">
-            <img
-              class="intro__logo"
-              src="./assets/logo.png"
-              alt=""
-              width="168"
-              height="112"
-            />
-            <h1 class="intro__title" data-i18n="introTitle">
-              Bienvenido A Profesional Firestop LLC
-            </h1>
-            <p class="intro__lede" data-i18n="introLede">
-              Baja para ver nuestros servicios, trabajos y contacto.
-            </p>
-            <a class="intro__scroll" href="#services" data-i18n="introScroll">
-              Bajar
-            </a>
-          </div>
-        </section>
-
-        <section
-          class="hero reveal"
-          aria-label="Introduction"
-          data-i18n="heroAria"
-          data-i18n-attr="aria-label"
-        >
-          <div class="hero__content">
-            <p class="brand-lockup">Profesional Firestop LLC</p>
-            <h1 data-i18n="heroTitle">Core drilling, GPR, and concrete cutting.</h1>
-            <p class="hero__lede" data-i18n="heroLede">
-              Precision cuts and scans for commercial and residential jobs —
-              done clean, on schedule, and ready for the next trade.
-            </p>
-            <div class="hero__actions">
-              <a class="btn btn--primary" href="#contact" data-i18n="heroCtaMessage">Send a message</a>
-              <a class="btn btn--ghost" href="#work" data-i18n="heroCtaWork">See our work</a>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <section class="services reveal" id="services" aria-labelledby="services-title">
-        <div class="section-intro">
-          <h2 id="services-title" data-i18n="servicesTitle">What we do</h2>
-          <p data-i18n="servicesIntro">Focused concrete services for builders, GCs, and property teams.</p>
-        </div>
-        <ul class="service-list">
-          <li class="reveal">
-            <h3 data-i18n="serviceCoreTitle">Core drilling</h3>
-            <p data-i18n="serviceCoreBody">Clean openings through slabs and walls for plumbing, electrical, and HVAC.</p>
-          </li>
-          <li class="reveal">
-            <h3 data-i18n="serviceGprTitle">GPR</h3>
-            <p data-i18n="serviceGprBody">Ground-penetrating radar scans to locate rebar, conduits, and voids before you cut.</p>
-          </li>
-          <li class="reveal">
-            <h3 data-i18n="serviceCutTitle">Concrete cutting</h3>
-            <p data-i18n="serviceCutBody">Saw cutting and controlled demolition for openings, removals, and renovations.</p>
-          </li>
-        </ul>
       </section>
 
-      <section class="work reveal" id="work" aria-labelledby="work-title">
-        <div class="section-intro">
-          <h2 id="work-title" data-i18n="workTitle">Our work</h2>
-          <p data-i18n="workIntro">Jobsite photos from drilling, scanning, and concrete cutting projects.</p>
+      <section
+        class="subject subject--hero"
+        id="hero"
+        data-subject="hero"
+        aria-label="Introduction"
+        data-i18n="heroAria"
+        data-i18n-attr="aria-label"
+      >
+        <div class="subject__content">
+          <p class="brand-lockup">Profesional Firestop LLC</p>
+          <h2 data-i18n="heroTitle">Core drilling, GPR, and concrete cutting.</h2>
+          <p class="hero__lede" data-i18n="heroLede">
+            Precision cuts and scans for commercial and residential jobs —
+            done clean, on schedule, and ready for the next trade.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contact" data-i18n="heroCtaMessage" data-subject-link="contact">Send a message</a>
+            <a class="btn btn--ghost" href="#work" data-i18n="heroCtaWork" data-subject-link="work">See our work</a>
+          </div>
         </div>
-        <div class="work-grid">
-          <figure class="work-item reveal">
+      </section>
+
+      <section
+        class="subject subject--services"
+        id="services"
+        data-subject="services"
+        aria-labelledby="services-title"
+      >
+        <div class="subject__content">
+          <div class="section-intro">
+            <h2 id="services-title" data-i18n="servicesTitle">What we do</h2>
+            <p data-i18n="servicesIntro">Focused concrete services for builders, GCs, and property teams.</p>
+          </div>
+          <ul class="service-list">
+            <li>
+              <h3 data-i18n="serviceCoreTitle">Core drilling</h3>
+              <p data-i18n="serviceCoreBody">Clean openings through slabs and walls for plumbing, electrical, and HVAC.</p>
+            </li>
+            <li>
+              <h3 data-i18n="serviceGprTitle">GPR</h3>
+              <p data-i18n="serviceGprBody">Ground-penetrating radar scans to locate rebar, conduits, and voids before you cut.</p>
+            </li>
+            <li>
+              <h3 data-i18n="serviceCutTitle">Concrete cutting</h3>
+              <p data-i18n="serviceCutBody">Saw cutting and controlled demolition for openings, removals, and renovations.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section
+        class="subject subject--work"
+        id="work"
+        data-subject="work"
+        aria-labelledby="work-title"
+      >
+        <div class="subject__content">
+          <div class="section-intro">
+            <h2 id="work-title" data-i18n="workTitle">Our work</h2>
+            <p data-i18n="workIntro">Jobsite photos from drilling, scanning, and concrete cutting projects.</p>
+          </div>
+          <div class="work-strip" aria-hidden="true">
+            <figure class="work-chip">
+              <img src="./assets/work/work-01.jpg?v=20260905" alt="" width="1536" height="1024" loading="lazy" />
+              <figcaption data-i18n="work1Caption">Core drilling</figcaption>
+            </figure>
+            <figure class="work-chip">
+              <img src="./assets/work/work-02.jpg?v=20260905" alt="" width="1536" height="1024" loading="lazy" />
+              <figcaption data-i18n="work2Caption">Core drilling on stand</figcaption>
+            </figure>
+            <figure class="work-chip">
+              <img src="./assets/work/work-03.jpg?v=20260905" alt="" width="1536" height="1024" loading="lazy" />
+              <figcaption data-i18n="work3Caption">Concrete cutting</figcaption>
+            </figure>
+            <figure class="work-chip">
+              <img src="./assets/work/work-04.jpg?v=20260905" alt="" width="1536" height="1024" loading="lazy" />
+              <figcaption data-i18n="work4Caption">Concrete saw cutting</figcaption>
+            </figure>
+            <figure class="work-chip">
+              <img src="./assets/work/work-05.jpg?v=20260905" alt="" width="1536" height="1024" loading="lazy" />
+              <figcaption data-i18n="work5Caption">GPR scanning</figcaption>
+            </figure>
+            <figure class="work-chip">
+              <img src="./assets/work/work-06.jpg?v=20260905" alt="" width="1536" height="1024" loading="lazy" />
+              <figcaption data-i18n="work6Caption">GPR results</figcaption>
+            </figure>
+          </div>
+          <div class="sr-only">
             <img
-              src="./assets/work/work-01.jpg?v=20260729"
+              src="./assets/work/work-01.jpg?v=20260905"
               alt="Core drilling with a diamond core drill into a masonry wall"
-              width="1536"
-              height="1024"
-              loading="lazy"
               data-i18n="work1Alt"
               data-i18n-attr="alt"
             />
-            <figcaption data-i18n="work1Caption">Core drilling</figcaption>
-          </figure>
-          <figure class="work-item reveal">
             <img
-              src="./assets/work/work-02.jpg?v=20260729"
+              src="./assets/work/work-02.jpg?v=20260905"
               alt="Rig-mounted core drill cutting a circular opening in concrete"
-              width="1536"
-              height="1024"
-              loading="lazy"
               data-i18n="work2Alt"
               data-i18n-attr="alt"
             />
-            <figcaption data-i18n="work2Caption">Core drilling on stand</figcaption>
-          </figure>
-          <figure class="work-item reveal">
             <img
-              src="./assets/work/work-03.jpg?v=20260729"
+              src="./assets/work/work-03.jpg?v=20260905"
               alt="Concrete chainsaw cutting a vertical opening in a wall"
-              width="1536"
-              height="1024"
-              loading="lazy"
               data-i18n="work3Alt"
               data-i18n-attr="alt"
             />
-            <figcaption data-i18n="work3Caption">Concrete cutting</figcaption>
-          </figure>
-          <figure class="work-item reveal">
             <img
-              src="./assets/work/work-04.jpg?v=20260729"
+              src="./assets/work/work-04.jpg?v=20260905"
               alt="Cut-off saw and water system ready for concrete cutting"
-              width="1536"
-              height="1024"
-              loading="lazy"
               data-i18n="work4Alt"
               data-i18n-attr="alt"
             />
-            <figcaption data-i18n="work4Caption">Concrete saw cutting</figcaption>
-          </figure>
-          <figure class="work-item reveal">
             <img
-              src="./assets/work/work-05.jpg?v=20260729"
+              src="./assets/work/work-05.jpg?v=20260905"
               alt="Technician scanning a concrete wall with GPR equipment"
-              width="1536"
-              height="1024"
-              loading="lazy"
               data-i18n="work5Alt"
               data-i18n-attr="alt"
             />
-            <figcaption data-i18n="work5Caption">GPR scanning</figcaption>
-          </figure>
-          <figure class="work-item reveal">
             <img
-              src="./assets/work/work-06.jpg?v=20260729"
+              src="./assets/work/work-06.jpg?v=20260905"
               alt="GPR scanner display showing subsurface scan results"
-              width="1536"
-              height="1024"
-              loading="lazy"
               data-i18n="work6Alt"
               data-i18n-attr="alt"
             />
-            <figcaption data-i18n="work6Caption">GPR results</figcaption>
-          </figure>
+          </div>
         </div>
       </section>
 
-      <section class="contact reveal" id="contact" aria-labelledby="contact-title">
-        <div class="contact__panel reveal">
-          <div class="section-intro">
-            <h2 id="contact-title" data-i18n="contactTitle">Write to us</h2>
-            <p data-i18n-html="contactIntro">
-              Tell us about your project. Your message opens in your email app
-              addressed to
-              <a href="mailto:professionalfirestopllc@gmail.com"
-                >professionalfirestopllc@gmail.com</a
-              >.
-            </p>
-            <p class="contact-phone">
-              <a href="tel:+12019176120">+1 (201) 917-6120</a>
-            </p>
-          </div>
+      <section
+        class="subject subject--contact"
+        id="contact"
+        data-subject="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="subject__content">
+          <div class="contact__panel">
+            <div class="section-intro">
+              <h2 id="contact-title" data-i18n="contactTitle">Write to us</h2>
+              <p data-i18n-html="contactIntro">
+                Tell us about your project. Your message opens in your email app
+                addressed to
+                <a href="mailto:professionalfirestopllc@gmail.com"
+                  >professionalfirestopllc@gmail.com</a
+                >.
+              </p>
+              <p class="contact-phone">
+                <a href="tel:+12019176120">+1 (201) 917-6120</a>
+              </p>
+            </div>
 
-          <form class="contact-form" id="contact-form" novalidate>
-            <div class="field">
-              <label for="name" data-i18n="formNameLabel">Your name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                autocomplete="name"
-                required
-                placeholder="Full name"
-                data-i18n="formNamePlaceholder"
-                data-i18n-attr="placeholder"
-              />
-            </div>
-            <div class="field">
-              <label for="email" data-i18n="formEmailLabel">Your email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                required
-                placeholder="you@example.com"
-                data-i18n="formEmailPlaceholder"
-                data-i18n-attr="placeholder"
-              />
-            </div>
-            <div class="field field--full">
-              <label for="message" data-i18n="formMessageLabel">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="6"
-                required
-                placeholder="Core drilling, GPR scan, concrete cutting — location, timing, and details…"
-                data-i18n="formMessagePlaceholder"
-                data-i18n-attr="placeholder"
-              ></textarea>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn--primary" type="submit" data-i18n="formSubmit">
-                Open email draft
-              </button>
-              <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
-            </div>
-          </form>
+            <form class="contact-form" id="contact-form" novalidate>
+              <div class="field">
+                <label for="name" data-i18n="formNameLabel">Your name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  placeholder="Full name"
+                  data-i18n="formNamePlaceholder"
+                  data-i18n-attr="placeholder"
+                />
+              </div>
+              <div class="field">
+                <label for="email" data-i18n="formEmailLabel">Your email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  placeholder="you@example.com"
+                  data-i18n="formEmailPlaceholder"
+                  data-i18n-attr="placeholder"
+                />
+              </div>
+              <div class="field field--full">
+                <label for="message" data-i18n="formMessageLabel">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  placeholder="Core drilling, GPR scan, concrete cutting — location, timing, and details…"
+                  data-i18n="formMessagePlaceholder"
+                  data-i18n-attr="placeholder"
+                ></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn--primary" type="submit" data-i18n="formSubmit">
+                  Open email draft
+                </button>
+                <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
     </main>
@@ -447,6 +477,6 @@
       </div>
     </footer>
 
-    <script src="./app.js?v=20260729b"></script>
+    <script type="module" src="./app.js?v=20260905a"></script>
   </body>
 </html>

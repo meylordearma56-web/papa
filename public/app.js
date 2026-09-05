@@ -278,14 +278,31 @@ function scrollToSubject(id, behavior = "smooth") {
 
 function syncSubjectUI(id, progress) {
   activeSubject = id;
+  const cursor = progress * (SUBJECTS.length - 1);
 
   document.querySelectorAll(".subject").forEach((section) => {
     const key = section.getAttribute("data-subject");
     const index = subjectIndex(key);
-    const local = progress * (SUBJECTS.length - 1) - index;
-    section.classList.toggle("is-active", Math.abs(local) < 0.42);
-    section.classList.toggle("is-passing-out", local > 0.42 && local < 1.05);
-    section.classList.toggle("is-passing-in", local < -0.42 && local > -1.05);
+    const local = cursor - index;
+    const isActive = key === id;
+    const isPassingOut = !isActive && local > 0.15 && local < 0.95;
+    const isPassingIn = !isActive && local < -0.15 && local > -0.95;
+
+    section.classList.toggle("is-active", isActive);
+    section.classList.toggle("is-passing-out", isPassingOut);
+    section.classList.toggle("is-passing-in", isPassingIn);
+
+    // Drive depth for the active panel so it eases as you leave it.
+    if (isActive) {
+      const pull = THREE.MathUtils.clamp(local, -0.45, 0.45);
+      const z = -pull * 140;
+      const y = pull * 18;
+      section.style.transform = `translate3d(0, ${y}px, ${z}px) rotateX(${pull * -6}deg)`;
+      section.style.opacity = String(1 - Math.abs(pull) * 0.35);
+    } else {
+      section.style.transform = "";
+      section.style.opacity = "";
+    }
   });
 
   document.querySelectorAll("[data-subject-link]").forEach((link) => {

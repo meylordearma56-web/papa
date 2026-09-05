@@ -377,7 +377,7 @@ function createWorld(canvas) {
   scene.add(tunnel);
 
   function sideOffset(index) {
-    return index % 2 === 0 ? -2.8 : 2.8;
+    return index % 2 === 0 ? -5.8 : 5.8;
   }
 
   const floorGeo = new THREE.PlaneGeometry(40, 160);
@@ -426,7 +426,7 @@ function createWorld(canvas) {
     group.position.set(0, 0, z);
 
     const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.position.set(sideOffset(index), 0.8, 0);
+    ring.position.set(sideOffset(index), -0.2, 0);
     ring.rotation.y = Math.PI / 2;
     group.add(ring);
 
@@ -434,12 +434,12 @@ function createWorld(canvas) {
       new THREE.CylinderGeometry(0.35, 0.35, 2.4, 24),
       steelMat
     );
-    core.position.set(sideOffset(index), 0.2, -1.2);
+    core.position.set(sideOffset(index), -0.6, -1.2);
     core.rotation.z = Math.PI / 2;
     group.add(core);
 
     const disk = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.4, 1.4, 0.08, 48),
+      new THREE.CylinderGeometry(1.15, 1.15, 0.08, 48),
       new THREE.MeshStandardMaterial({
         color: 0x2a323a,
         roughness: 0.55,
@@ -447,7 +447,7 @@ function createWorld(canvas) {
         emissive: 0x180000,
       })
     );
-    disk.position.set(-sideOffset(index) * 0.85, 0.4, -2.2);
+    disk.position.set(-sideOffset(index) * 0.92, -0.35, -2.2);
     disk.rotation.x = Math.PI / 2;
     group.add(disk);
 
@@ -471,16 +471,16 @@ function createWorld(canvas) {
     const texture = loader.load(path);
     texture.colorSpace = THREE.SRGBColorSpace;
     const aspect = 1.5;
-    const height = 3.2;
+    const height = 2.6;
     const width = height * aspect;
     const mesh = new THREE.Mesh(
       new THREE.PlaneGeometry(width, height),
       new THREE.MeshBasicMaterial({ map: texture, toneMapped: false })
     );
-    const lane = index % 2 === 0 ? -4.2 : 4.2;
-    const z = -6 - index * 9.5;
-    mesh.position.set(lane, 1.1, z);
-    mesh.rotation.y = lane > 0 ? -0.35 : 0.35;
+    const lane = index % 2 === 0 ? -6.4 : 6.4;
+    const z = -8 - index * 10;
+    mesh.position.set(lane, 0.55, z);
+    mesh.rotation.y = lane > 0 ? -0.42 : 0.42;
     tunnel.add(mesh);
     photoPlanes.push(mesh);
 

@@ -133,6 +133,7 @@ a {
   width: min(48rem, 100%);
   margin-inline: auto;
   animation: subject-rise 0.9s var(--ease) both;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.72), 0 1px 2px rgba(0, 0, 0, 0.85);
 }
 
 .subject__content--center {
@@ -147,8 +148,16 @@ a {
   margin-inline: 0;
   margin-left: clamp(0rem, 4vw, 2rem);
   align-self: end;
-  width: min(42rem, 100%);
+  width: min(38rem, 100%);
+  padding: 1.25rem 1.1rem 1.35rem;
   padding-bottom: clamp(1rem, 4vh, 2.5rem);
+  border-radius: 0.55rem;
+  background: linear-gradient(
+    135deg,
+    rgba(8, 10, 12, 0.72) 0%,
+    rgba(8, 10, 12, 0.28) 100%
+  );
+  backdrop-filter: blur(8px);
 }
 
 .subject--hero {
@@ -158,6 +167,14 @@ a {
 .subject--services .subject__content,
 .subject--work .subject__content {
   width: min(64rem, 100%);
+  padding: 1.1rem 1.15rem 1.25rem;
+  border-radius: 0.55rem;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 10, 12, 0.66) 0%,
+    rgba(8, 10, 12, 0.38) 100%
+  );
+  backdrop-filter: blur(8px);
 }
 
 .subject--contact .subject__content {
@@ -503,13 +520,9 @@ a {
 }
 
 .service-list li {
-  padding: 1.25rem 0 0;
+  padding: 1.25rem 1rem 1rem;
   border-top: 3px solid var(--ember);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    transparent 70%
-  );
+  background: rgba(11, 14, 17, 0.55);
 }
 
 .service-list h3 {
@@ -586,7 +599,7 @@ a {
 .work-chip {
   margin: 0;
   overflow: hidden;
-  background: rgba(15, 19, 23, 0.72);
+  background: rgba(15, 19, 23, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
